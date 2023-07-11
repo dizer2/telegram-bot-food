@@ -3,14 +3,7 @@ require("dotenv").config();
 const TelegramBot = require('node-telegram-bot-api');
 
 const token = process.env.TELEGRAMTOKEN;
-const bot = new TelegramBot(token);
-
-bot.setWebHook('https://telegram-bot-server-xdqk.onrender.com');
-
-
-bot.on('webhook_error', (error) => {
-  console.error('Webhook error:', error);
-});
+const bot = new TelegramBot(token, {polling: true});
 
 const webAppUrl ='https://foods-two.vercel.app/'
 
@@ -19,7 +12,7 @@ bot.on('message',  async(msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
 
-  if (text == "/start") {
+  if (text === "/start" && !msg.reply_to_message) {
 	await bot.sendMessage(chatId, "Yo! I'm Tommy-bot and I'll help you quickly create an order 😁❤️  If you like good food, that's fine. Press the button below to choose food 👇", {
 		reply_markup: {
 			inline_keyboard: [
@@ -30,4 +23,3 @@ bot.on('message',  async(msg) => {
   }
   
 });
-
