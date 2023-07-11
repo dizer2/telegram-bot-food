@@ -3,7 +3,15 @@ require("dotenv").config();
 const TelegramBot = require('node-telegram-bot-api');
 
 const token = process.env.TELEGRAMTOKEN;
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(token);
+
+bot.setWebHook('https://telegram-bot-server-xdqk.onrender.com/');
+
+
+bot.on('webhook_error', (error) => {
+  console.error('Webhook error:', error);
+});
+
 const webAppUrl ='https://foods-two.vercel.app/'
 
 
@@ -22,3 +30,4 @@ bot.on('message',  async(msg) => {
   }
   
 });
+
